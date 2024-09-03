@@ -1,0 +1,31 @@
+{% extends "appcoder/index.html" %}
+
+{% load static %}
+
+{% block main %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ publicacion.titulo }}</title>
+    <link rel="stylesheet" href="{% static 'appcoder/css/styles.css' %}">
+</head>
+<body>
+    <h1>{{ publicacion.titulo }}</h1>
+    <h3>{{ publicacion.subtitulo }}</h3> <!-- Mostrar el subtítulo -->
+    <p><strong>Autor:</strong> {{ publicacion.creador.username }}</p> <!-- Mostrar el autor -->
+    <p><strong>Fecha de publicación:</strong> {{ publicacion.fecha_publicacion|date:"d M Y" }}</p> <!-- Mostrar la fecha de publicación -->
+    
+    {% if publicacion.imagen %}
+        <img src="{{ publicacion.imagen.url }}" alt="{{ publicacion.titulo }}" style="max-width: 500px;">
+    {% else %}
+        <p>No hay imagen disponible.</p>
+    {% endif %}
+
+    <p>{{ publicacion.contenido }}</p>
+    
+    <a href="{% url 'publicacion_list' %}" class="btn btn-primary">Volver a la lista</a>
+</body>
+</html>
+{% endblock main %}

@@ -1,0 +1,74 @@
+{% extends "appcoder/index.html" %}
+
+{% load static %}
+
+{% block main %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Publicación</title>
+    <link rel="stylesheet" href="{% static 'appcoder/css/styles.css' %}">
+    <style>
+        label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+
+        textarea::placeholder, input::placeholder {
+            color: #888;
+            font-style: italic;
+        }
+
+        .message {
+            color: rgb(38, 22, 185);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crear Publicación</h1>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-field">
+            <label for="{{ form.titulo.id_for_label }}">Título:</label><br>
+            {{ form.titulo }}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.subtitulo.id_for_label }}">Subtítulo:</label><br>
+            {{ form.subtitulo }}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.contenido.id_for_label }}">Contenido:</label><br>
+            {{ form.contenido }}
+        </div>
+
+        <div class="form-field">
+            <label for="{{ form.imagen.id_for_label }}">Subir imagen:</label><br>
+            {{ form.imagen }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Publicar</button>
+    </form>
+</body>
+</html>
+{% endblock main %}
